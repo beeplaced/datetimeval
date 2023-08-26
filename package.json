@@ -1,0 +1,20 @@
+{
+  "name": "datetime-val",
+  "version": "1.0.0",
+  "description": "useful tools for datetime validations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beeplaced/datetimeval.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beeplaced/datetimeval/issues"
+  },
+  "homepage": "https://github.com/beeplaced/datetimeval#readme"
+}
