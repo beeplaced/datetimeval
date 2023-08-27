@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/beeplaced/datetimeval.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["zulutime"],
+  "author": "beeplaced",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/beeplaced/datetimeval/issues"

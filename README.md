@@ -1,4 +1,4 @@
-# datetimeval
+# datetime-val
 
 some useful tools for datetime validations.
 
@@ -10,6 +10,10 @@ some useful tools for datetime validations.
 - [License](#license)
 
 ## Installation
+
+npm i datetime-val
+
+## Usage
 
 Provide instructions on how to install and set up your project. Include code snippets or commands that users need to execute.
 

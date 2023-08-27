@@ -18,7 +18,6 @@ module.exports = class {
 
     zuluTimeNow = () => {
         try {
-        //The trailing "Z" indicates that the time is in Coordinated Universal Time (UTC). This "Z" is short for "Zulu time," which is a term used in aviation and the military to denote UTC time.
         const utcDate = new Date()
         const offset = utcDate.getTimezoneOffset()
         const absOffset = Math.abs(offset) / 60
@@ -33,7 +32,6 @@ module.exports = class {
 
     convertToISOFill = (dateString) => {
         try {
-        console.log(this.country)
         const res = { valDateString: false, dateStringISO: false }
         if (regex.dateRegexDotdeLazy.test(dateString)) {
             const parts = dateString.split('.')
@@ -69,17 +67,14 @@ module.exports = class {
         switch (this.country) {
             case 'us':
                 break;
-        default://de
+        default: //de
                 if (!regex.dateRegexDotde.test(dateString)) return false
                 return new Date(dateString.split('.').reverse().join('-'))
         }
-
-
     }
 
     convertToZulu = (dateString) => {
         try {
-        console.log(dateString)
         const date = new Date(dateString)
         const day = date.getUTCDate()
         const month = date.getUTCMonth() + 1
@@ -88,9 +83,8 @@ module.exports = class {
         const monthFormatted = ('0' + month).slice(-2)
         switch (this.country) {
             case 'us':
-
                 break;
-            default://de
+            default: //de
             return `${dayFormatted}.${monthFormatted}.${year}`
         }
         } catch (error) {
@@ -103,23 +97,18 @@ module.exports = class {
         const { seconds = 0, minutes = 0, days = 0, months = 0 } = input;
         const now = this.zuluTimeNow();
         let timeAgo = new Date(now);
-
         if (months) {
             timeAgo.setMonth(now.getMonth() - months);
         }
-
         if (days) {
             timeAgo = new Date(timeAgo.getTime() - days * 24 * 60 * 60 * 1000);
         }
-
         if (minutes) {
             timeAgo = new Date(timeAgo.getTime() - minutes * 60 * 1000);
         }
-
         if (seconds) {
             timeAgo = new Date(timeAgo.getTime() - seconds * 1000);
         }
-
         return timeAgo;
         } catch (error) {
             console.log(error)
