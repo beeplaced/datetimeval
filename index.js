@@ -63,6 +63,15 @@ module.exports = class {
         return date instanceof Date && !isNaN(date)
     }
 
+    isValidDateFormat = (dateString) => {
+        switch (this.country) {
+            case 'us':
+                break;
+            default: //de
+                return regex.dateRegexDotde.test(dateString)
+        }
+    }
+
     convertToISO = (dateString) => {
         switch (this.country) {
             case 'us':
