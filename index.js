@@ -82,7 +82,7 @@ module.exports = class {
         }
     }
 
-    convertToZulu = (dateString) => {
+    convertFromZulu = (dateString) => {
         try {
         const date = new Date(dateString)
         const day = date.getUTCDate()
