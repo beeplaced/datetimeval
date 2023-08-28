@@ -19,8 +19,11 @@ The zuluTimeNow function is a JavaScript utility designed to convert the current
 To use the zuluTimeNow function, simply call it within your JavaScript code:
 
 ```js
-const zuluTime = zuluTimeNow();
+const dtnpm = require('datetime-val')
+const dateTimeVal = new dtnpm() //default: de
+const zuluTime = dateTimeVal.zuluTimeNow();
 console.log("Zulu Time:", zuluTime);
+"Zulu Time: 2023-08-28T08:34:24.492Z"
 
 ```
 
