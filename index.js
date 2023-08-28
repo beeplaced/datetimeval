@@ -7,7 +7,8 @@ const regex = {
     dateRegexdeShort: /\b(\d{1,2})\.(\d{1,2})\.(\d{2})\b/,
     dateRegexSlash: /^\d{2}\/\d{2}\/\d{4}$/,
     dateRegexMinus: /^\d{2}-\d{2}-\d{4}$/,
-    isoDateRegex: /^(\d{4})-(\d{2})-(\d{2}).*$/
+    isoDateRegex: /^(\d{4})-(\d{2})-(\d{2}).*$/,
+    zuluTimeRegex: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
 }
 
 module.exports = class {
@@ -30,7 +31,7 @@ module.exports = class {
         }
     }
 
-    convertToISOFill = (dateString) => {
+    convertToISOFill = (dateString) => {//de
         try {
         const res = { valDateString: false, dateStringISO: false }
         if (regex.dateRegexDotdeLazy.test(dateString)) {
@@ -72,13 +73,14 @@ module.exports = class {
         }
     }
 
-    convertToISO = (dateString) => {
+    convertToZulu = (dateString) => {
+        if (regex.zuluTimeRegex.test(dateString)) return dateString
         switch (this.country) {
             case 'us':
                 break;
         default: //de
-                if (!regex.dateRegexDotde.test(dateString)) return false
-                return new Date(dateString.split('.').reverse().join('-'))
+            const { dateStringISO } = this.convertToISOFill(dateString)
+            return dateStringISO
         }
     }
 

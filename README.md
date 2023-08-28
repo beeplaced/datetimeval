@@ -68,3 +68,17 @@ const convertedDate = convertFromZulu(zuluDateString);
 console.log("Converted Date:", convertedDate);
 "Converted Date: 28.08.2023"
 ```
+
+## Convert eveything to Zulu Time
+
+The convertToZulu function is a JavaScript utility designed to convert a given local date string to its equivalent Zulu Time (Coordinated Universal Time, UTC) string representation. Zulu Time is widely used in aviation, military, and other applications to maintain a standardized time reference. This utility provides the flexibility to handle country-specific date formatting and conversion.
+
+```js
+const converted = dateTimeVal.convertToZulu('2020-07-09T00:00:00.000Z');
+console.log("converted:", converted);
+"converted: 2020-07-09T00:00:00.000Z"
+dateTimeVal.convertToZulu('1.12.2023');
+"converted: 2023-12-01T00:00:00.000Z"
+dateTimeVal.convertToZulu('111.12.2023');
+"converted: false"
+```
