@@ -1,6 +1,6 @@
 {
   "name": "datetime-val",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "useful tools for datetime validations",
   "main": "index.js",
   "scripts": {

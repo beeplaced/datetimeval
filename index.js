@@ -13,13 +13,30 @@ const regex = {
 
 module.exports = class {
 
+/**
+ * Set country for time Requests
+ * @param {string} [country] - The country code ('us' for United States, 'de' for Germany). Default is 'de'.
+*/
     constructor(country){
         this.country = country || 'de'
     }
 
+/**
+ * Get the current Zulu time (UTC) with an optional country-specific offset.
+ * @returns {Date} The current Zulu time.
+ */
     zuluTimeNow = () => {
         try {
-        const utcDate = new Date()
+            let utcDate
+            switch (this.country) {
+                case 'us':
+                utcDate = new Date()
+                    break;
+                default: //de
+                const bTimeZone = 'Europe/Berlin';
+                const bDate = new Date().toLocaleString('en-US', { timeZone: bTimeZone });
+                utcDate = new Date(bDate);
+            }
         const offset = utcDate.getTimezoneOffset()
         const absOffset = Math.abs(offset) / 60
         const newTime = offset < 0
@@ -27,12 +44,24 @@ module.exports = class {
             : utcDate.getTime() - absOffset * 60 * 60 * 1000
         return new Date(newTime)
         } catch (error) {
-            console.log(error)
+            console.error(error)
+            return new Date()
         }
     }
 
+    /** convertToISOFill
+     * @param {string} dateString - The input parameters.
+     */
     convertToISOFill = (dateString) => {//de
         try {
+        /**
+        * @typedef {Object} ConversionResult
+        * @property {string|false} valDateString - The converted date string in ISO format ('yyyy-mm-dd'),
+        *                                          or false if the input date is invalid.
+        * @property {Date|false} dateStringISO - The Date object representing the ISO date,
+        *                                       or false if the input date is invalid.
+        */
+        /** @type {ConversionResult} */
         const res = { valDateString: false, dateStringISO: false }
         if (regex.dateRegexDotdeLazy.test(dateString)) {
             const parts = dateString.split('.')
@@ -56,14 +85,19 @@ module.exports = class {
         }
         return res
         } catch (error) {
-            console.log(error)
+            console.error(error)
+            return { valDateString: false, dateStringISO: false }
         }
     }
+
 
     isValidISODate(date) {
         return date instanceof Date && !isNaN(date)
     }
 
+ /** isValidDateFormat
+ * @param {string} dateString - The input parameters.
+ */
     isValidDateFormat = (dateString) => {
         switch (this.country) {
             case 'us':
@@ -73,6 +107,9 @@ module.exports = class {
         }
     }
 
+/** isValidDateFormat
+* @param {string} dateString - The input parameters.
+*/
     convertToZulu = (dateString) => {
         if (regex.zuluTimeRegex.test(dateString)) return dateString
         switch (this.country) {
@@ -84,6 +121,9 @@ module.exports = class {
         }
     }
 
+/** isValidDateFormat
+* @param {string} dateString - The input parameters.
+*/
     convertFromZulu = (dateString) => {
         try {
         const date = new Date(dateString)
@@ -99,10 +139,15 @@ module.exports = class {
             return `${dayFormatted}.${monthFormatted}.${year}`
         }
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 
+/**
+ * Calculate a date in the past relative to the current Zulu time (UTC).
+ * @param {{ seconds?: number, minutes?: number, days?: number, months?: number }} input - An object specifying the time difference.
+ * @returns {Date} The calculated date in the past.
+*/
     dbRefTimeAgo(input) {
         try {
         const { seconds = 0, minutes = 0, days = 0, months = 0 } = input;
@@ -122,7 +167,8 @@ module.exports = class {
         }
         return timeAgo;
         } catch (error) {
-            console.log(error)
+            console.error(error)
+            return new Date();
         }
     }
 }
